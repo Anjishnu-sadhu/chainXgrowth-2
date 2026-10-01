@@ -33,39 +33,92 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <style>
-        @media (max-width: 768px) {
-            h1 { font-size: 42px !important; }
-            h2 { font-size: 36px !important; }
-            
-            .stats-box {
-                padding: 24px !important;
-                margin-top: -30px !important;
-            }
-            .stats-box > div {
-                flex-basis: 100% !important;
-                min-width: 100% !important;
-            }
-            .stats-box .divider {
-                display: none !important;
-            }
-            
-            a.pill-item {
-                width: 100% !important;
-                text-align: center !important;
-                box-sizing: border-box;
-            }
-            
-            .wrap[style*="gap:60px"],
-            .wrap[style*="gap: 60px"] {
-                gap: 30px !important;
-            }
-            
-            .pill-item p {
-                font-size: 13px !important;
-            }
-        }
-    </style>
+<style>
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+</style>
+<style>
+@keyframes spinY {
+  0% { transform: perspective(1000px) rotateY(0deg); }
+  100% { transform: perspective(1000px) rotateY(360deg); }
+}
+</style>
+
+<style>
+/* Sidebar Interactive Animations */
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-nav li {
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.sidebar-nav li:last-child {
+    border-bottom: none;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+/* The cyan indicator line */
+.sidebar-nav a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--cy);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+    opacity: 0;
+}
+.sidebar-nav a:hover {
+    background: rgba(0, 225, 255, 0.05);
+    color: var(--tx);
+    padding-left: 32px;
+}
+.sidebar-nav a:hover::before {
+    transform: scaleY(1);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}
+.sidebar-nav a .num {
+    color: var(--cy);
+    font-weight: 700;
+    font-size: 16px;
+    transition: text-shadow 0.3s;
+}
+.sidebar-nav a:hover .num {
+    text-shadow: 0 0 10px rgba(0, 225, 255, 0.4);
+}
+.sidebar-nav a .chevron {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.3s, transform 0.3s;
+}
+.sidebar-nav a:hover .chevron {
+    color: var(--cy);
+    transform: translateX(4px);
+}
+</style>
 </head>
 
 <body>
@@ -76,37 +129,37 @@
         <div class="wrap"><a class="logo" href="index.html" style="display:flex; align-items:center; gap:8px;"><img
                     src="logo%20image/logo%20new.png" style="height:32px;"><img src="logo%20image/logo%20new%202.png"
                     alt="ChainXGrowth" style="height:22px;"></a>
-            <div class="links"><a href="index.html">Home</a><a href="index.html#fabric">Intelligence</a><a
+            <div class="links"><a class="on" href="index.html">Home</a><a href="index.html#fabric">Intelligence</a><a
                     href="index.html#vantage">Coverage</a><a href="index.html#teams">Who it's for</a><a
                     href="index.html#method">Method</a><!-- <a href="#pricing">Pricing</a> -->
                     <div class="res-dropdown" style="position:relative; display:flex; align-items:center;" tabindex="0">
-                        <a href="javascript:void(0)" data-toggle="true" class="on" style="display:flex; align-items:center; gap:4px; padding-bottom:6px;">Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <a href="javascript:void(0)" data-toggle="true" style="display:flex; align-items:center; gap:4px; padding-bottom:6px;">Resources <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
                         <div class="dropdown-content" style="position:absolute; top:calc(100% + 5px); left:50%; transform:translateX(-50%); background:#0b111a; border:1px solid rgba(255,255,255,0.05); border-radius:12px; min-width:200px; box-shadow:0 10px 40px rgba(0,0,0,0.5); display:none; flex-direction:column; padding:8px; z-index:100;">
-                            <a href="real-estates.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color:#c2d8e6; text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
+                            <a href="real-estates.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color: rgba(255, 255, 255, 0.85); text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
                                 <div style="width:32px; height:32px; border-radius:8px; background:#1e293b; display:flex; justify-content:center; align-items:center; color:#3a9bf8;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 </div>
                                 <span style="font-weight:500; font-size:14.5px;">Real Estates</span>
                             </a>
-                            <a href="sports.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color:#c2d8e6; text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
+                            <a href="sports.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color: rgba(255, 255, 255, 0.85); text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
                                 <div style="width:32px; height:32px; border-radius:8px; background:#1e293b; display:flex; justify-content:center; align-items:center; color:#3a9bf8;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
                                 </div>
                                 <span style="font-weight:500; font-size:14.5px;">Sports</span>
                             </a>
-                            <a href="health.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color:#c2d8e6; text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
+                            <a href="health.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color: rgba(255, 255, 255, 0.85); text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
                                 <div style="width:32px; height:32px; border-radius:8px; background:#1e293b; display:flex; justify-content:center; align-items:center; color:#3a9bf8;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>
                                 </div>
                                 <span style="font-weight:500; font-size:14.5px;">Health</span>
                             </a>
-                            <a href="education.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color:#c2d8e6; text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
+                            <a href="education.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color: rgba(255, 255, 255, 0.85); text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
                                 <div style="width:32px; height:32px; border-radius:8px; background:#1e293b; display:flex; justify-content:center; align-items:center; color:#3a9bf8;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                                 </div>
                                 <span style="font-weight:500; font-size:14.5px;">Education</span>
                             </a>
-                            <a href="entertainment.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color:#c2d8e6; text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
+                            <a href="entertainment.html" class="res-item" style="display:flex; align-items:center; gap:12px; padding:10px 12px; color: rgba(255, 255, 255, 0.85); text-decoration:none; border-radius:8px; transition: background 0.2s, color 0.2s; border:none; border-bottom:none;">
                                 <div style="width:32px; height:32px; border-radius:8px; background:#1e293b; display:flex; justify-content:center; align-items:center; color:#3a9bf8;">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"></rect><line x1="7" x2="7" y1="2" y2="22"></line><line x1="17" x2="17" y1="2" y2="22"></line><line x1="2" x2="7" y1="12" y2="12"></line><line x1="2" x2="7" y1="7" y2="7"></line><line x1="2" x2="7" y1="17" y2="17"></line><line x1="17" x2="22" y1="12" y2="12"></line><line x1="17" x2="22" y1="7" y2="7"></line><line x1="17" x2="22" y1="17" y2="17"></line></svg>
                                 </div>
@@ -120,145 +173,144 @@
         </div>
     </nav>
 
-        <main id="main">
-        <section style="position:relative; width:100%; padding: 100px 0 60px; display:flex; overflow:hidden;">
-            <!-- Background Image -->
-            <!-- Background Removed -->
-            <!-- Gradient Overlay -->
-            <!-- Gradient Overlay Removed to show background -->
-            
-            <div class="wrap" style="position:relative; z-index:2; display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:40px; width:100%; max-width:1200px; margin: 0 auto; padding:0 20px;">
-<div style="flex: 1 1 500px; max-width:600px;">
-                
-                <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
-                    <div style="width:24px; height:2px; background:var(--cy);"></div>
-                    <span style="color:var(--cy); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Health & Wellness</span>
-                </div>
-                
-                <h1 style="font-family:var(--sans); font-size:72px; font-weight:800; line-height:1.05; margin-bottom:24px; color:#fff;">
-                    Healthy People<br>
-                    <span style="color:#00e1ff;">Stronger</span><br>
-                    Tomorrow
-                </h1>
-                
-                <p style="color:#c2d8e6; font-size:16px; line-height:1.6; max-width:600px; margin-bottom:40px;">
-                    Connecting healthcare innovators, providers and communities<br>through opportunities that create a healthier, happier world.
-                </p>
-                
-                </div>
-<div style="flex: 1 1 400px; max-width:600px;">
-<!-- Timeline / Vertical List -->
-                <div style="display:flex; flex-direction:column; gap:24px; position:relative; margin-bottom:50px;">
-                    <!-- Vertical connecting line -->
-                    <div style="position:absolute; left:24px; top:24px; bottom:24px; width:1px; background:rgba(0,225,255,0.3); z-index:0;"></div>
     
-                    <!-- Item 1 -->
-                    <div class="pill-item" style="display:flex; align-items:center; gap:24px; position:relative; z-index:1;">
-                        <div style="width:48px; height:48px; border-radius:12px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:#040a0e; flex-shrink:0; box-shadow: 0 0 10px rgba(0,225,255,0.2);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M11 11h-2v2h-2v-2H5v-2h2V7h2v2h2v2z" fill="#040a0e"/></svg>
-                        </div>
-                        <div>
-                            <h4 style="color:#fff; font-size:18px; font-weight:700; font-family:var(--sans); margin:0 0 4px;">Better Access to Healthcare Services</h4>
-                            <p style="color:#8b949e; font-size:14px; margin:0;">Bridging the gap between people and quality care.</p>
-                        </div>
-                    </div>
     
-                    <!-- Item 2 -->
-                    <div class="pill-item" style="display:flex; align-items:center; gap:24px; position:relative; z-index:1;">
-                        <div style="width:48px; height:48px; border-radius:12px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:#040a0e; flex-shrink:0; box-shadow: 0 0 10px rgba(0,225,255,0.2);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                        </div>
-                        <div>
-                            <h4 style="color:#fff; font-size:18px; font-weight:700; font-family:var(--sans); margin:0 0 4px;">Support for Wellness Programs</h4>
-                            <p style="color:#8b949e; font-size:14px; margin:0;">Promoting healthier lifestyles for stronger communities.</p>
-                        </div>
-                    </div>
-    
-                    <!-- Item 3 -->
-                    <div class="pill-item" style="display:flex; align-items:center; gap:24px; position:relative; z-index:1;">
-                        <div style="width:48px; height:48px; border-radius:12px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:#040a0e; flex-shrink:0; box-shadow: 0 0 10px rgba(0,225,255,0.2);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </div>
-                        <div>
-                            <h4 style="color:#fff; font-size:18px; font-weight:700; font-family:var(--sans); margin:0 0 4px;">Funding for Medical Innovation</h4>
-                            <p style="color:#8b949e; font-size:14px; margin:0;">Empowering ideas that save and improve lives.</p>
-                        </div>
-                    </div>
-    
-                    <!-- Item 4 -->
-                    <div class="pill-item" style="display:flex; align-items:center; gap:24px; position:relative; z-index:1;">
-                        <div style="width:48px; height:48px; border-radius:12px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:#040a0e; flex-shrink:0; box-shadow: 0 0 10px rgba(0,225,255,0.2);">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" x2="22" y1="12" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                        </div>
-                        <div>
-                            <h4 style="color:#fff; font-size:18px; font-weight:700; font-family:var(--sans); margin:0 0 4px;">A Healthier & Happier Global Community</h4>
-                            <p style="color:#8b949e; font-size:14px; margin:0;">Building a better future, together.</p>
-                        </div>
-                    </div>
-                </div>
+    <main id="main">
+        <section style="padding: 60px 0 100px; position:relative; overflow:hidden;">
+            <div class="wrap" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
                 
-                <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:20px;">
-                    <a href="#" class="pill-item" style="display:inline-block; background:#00a3ff; color:#fff; font-weight:700; font-size:16px; padding:16px 32px; border-radius:99px; text-decoration:none; box-shadow:0 10px 30px rgba(0,163,255,0.4); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 15px 40px rgba(0,163,255,0.6)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,163,255,0.4)';">
-                        Explore Health Opportunities &rarr;
-                    </a>
-                    <a href="#" class="pill-item" style="display:inline-block; background:transparent; border:1px solid #00e1ff; color:#fff; font-weight:700; font-size:16px; padding:16px 32px; border-radius:99px; text-decoration:none; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,225,255,0.1)';" onmouseout="this.style.background='transparent';">
-                        Learn More
-                    </a>
+                <!-- Header -->
+                <div style="margin-bottom: 64px;" class="rv">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                        <span style="color: var(--cy); font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;">LEGAL</span>
+                        <div style="width: 40px; height: 1px; background: var(--cy);"></div>
+                    </div>
+                    <h1 style="  font-size: clamp(48px, 6vw, 72px); color: var(--tx); line-height: 1.1; margin-bottom: 24px;">
+                        Terms of <span style="color: var(--cy);">Service</span>
+                    </h1>
+                    <p style="font-size: clamp(16px, 1.8vw, 18px); color: rgba(255, 255, 255, 0.85); line-height: 1.6; max-width: 700px; margin-bottom: 16px;">
+                        These Terms of Service govern your access to and use of the ChainXGrowth platform. By using our platform, you agree to these terms and the responsibilities described below.
+                    </p>
+                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.85); opacity: 0.7;">Last updated: October 1, 2026</p>
                 </div>
-                
-            </div>
-        </section>
 
-        <section style="position:relative; z-index:10; max-width:1200px; margin:-60px auto 100px; padding:0 20px;">
-            <div class="stats-box" style="background:#0a1018; border:1px solid #00e1ff; border-radius:24px; padding:30px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:30px; box-shadow:0 10px 40px rgba(0,225,255,0.15);">
-                
-                <!-- Item 1 -->
-                <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:180px;">
-                    <div style="width:56px; height:56px; border-radius:16px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:rgba(0,225,255,0.05); flex-shrink:0; box-shadow: inset 0 0 15px rgba(0,225,255,0.15);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <!-- Split Layout -->
+                <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+                    
+                    <!-- Sidebar Menu -->
+                    <div class="rv" style="flex: 1 1 300px; max-width: 350px; background: var(--bg2); border: 1px solid rgba(0, 225, 255, 0.15); border-radius: 12px; overflow: hidden; position: sticky; top: 120px;">
+                        <ul class="sidebar-nav">
+                            <li>
+                                
+                                <a href="#term-1">
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="num">01</span>
+        <span>Acceptance of Terms</span>
+    </div>
+    <span class="chevron">></span>
+</a>
+                            </li>
+                            <li>
+                                <a href="#term-2">
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="num">02</span>
+        <span>Use of the Platform</span>
+    </div>
+    <span class="chevron">></span>
+</a>
+                            </li>
+                            <li>
+                                <a href="#term-3">
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="num">03</span>
+        <span>Intelligence & Information</span>
+    </div>
+    <span class="chevron">></span>
+</a>
+                            </li>
+                            <li>
+                                <a href="#term-4">
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="num">04</span>
+        <span>No Professional Advice</span>
+    </div>
+    <span class="chevron">></span>
+</a>
+                            </li>
+                            <li>
+                                <a href="#term-5">
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="num">05</span>
+        <span>Intellectual Property</span>
+    </div>
+    <span class="chevron">></span>
+</a>
+                            </li>
+                            <!-- More links can be added here, cutting short for brevity -->
+                        </ul>
                     </div>
-                    <div>
-                        <div style="color:#fff; font-size:24px; font-weight:800; font-family:var(--sans); margin-bottom:4px; line-height:1;">10M+</div>
-                        <div style="color:#00e1ff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">People<br>Impacted</div>
+
+                    <!-- Main Content Block -->
+                    <div class="rv" style="flex: 3 1 600px; background: var(--bg2); border: 1px solid rgba(0, 225, 255, 0.15); border-radius: 12px; padding: 48px; color: rgba(255, 255, 255, 0.85); font-size: 15.5px; line-height: 1.8;">
+                        
+                        <div id="term-1" style="margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="color: var(--cy); font-size: 20px; font-weight: 800;">01</span>
+                                <div style="width: 40px; height: 1px; background: rgba(0, 225, 255, 0.5);"></div>
+                            </div>
+                            <h2 style="   font-size: 28px; color: var(--tx); margin-bottom: 24px;">Acceptance of Terms</h2>
+                            <p style="margin-bottom: 16px;">By accessing or using ChainXGrowth, you confirm that you have read, understood, and agreed to these Terms of Service.</p>
+                            <p>If you do not agree with these terms, please discontinue use of the platform.</p>
+                        </div>
+
+                        <div id="term-2" style="margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="color: var(--cy); font-size: 20px; font-weight: 800;">02</span>
+                                <div style="width: 40px; height: 1px; background: rgba(0, 225, 255, 0.5);"></div>
+                            </div>
+                            <h2 style="   font-size: 28px; color: var(--tx); margin-bottom: 24px;">Use of the Platform</h2>
+                            <p style="margin-bottom: 16px;">You agree to use ChainXGrowth only for lawful purposes and in accordance with these Terms. You are responsible for maintaining the security of your account credentials and for all activities carried out through your account.</p>
+                            <p>We may restrict, suspend, or terminate access where we reasonably believe there has been misuse, unauthorized access, or a violation of these terms.</p>
+                        </div>
+
+                        <div id="term-3" style="margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="color: var(--cy); font-size: 20px; font-weight: 800;">03</span>
+                                <div style="width: 40px; height: 1px; background: rgba(0, 225, 255, 0.5);"></div>
+                            </div>
+                            <h2 style="   font-size: 28px; color: var(--tx); margin-bottom: 24px;">Intelligence & Information</h2>
+                            <p style="margin-bottom: 16px;">ChainXGrowth provides technology-driven intelligence, analysis, research, and information designed to help users understand complex systems and make informed decisions.</p>
+                            <p>Information presented through the platform may be generated, processed, or summarized using automated systems and other sources. We do not guarantee that every insight, analysis, or piece of information will be complete, accurate, or current. Users should independently evaluate information before relying on it.</p>
+                        </div>
+
+                        <div id="term-4" style="margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="color: var(--cy); font-size: 20px; font-weight: 800;">04</span>
+                                <div style="width: 40px; height: 1px; background: rgba(0, 225, 255, 0.5);"></div>
+                            </div>
+                            <h2 style="   font-size: 28px; color: var(--tx); margin-bottom: 24px;">No Professional Advice</h2>
+                            <p style="margin-bottom: 16px;">Unless explicitly stated otherwise, information provided through ChainXGrowth should not be interpreted as financial, investment, legal, tax, accounting, or other professional advice.</p>
+                            <p>The platform is designed to provide information and intelligence to support human decision-making. Users remain responsible for their own decisions and actions.</p>
+                        </div>
+
+                        <div id="term-5" style="margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <span style="color: var(--cy); font-size: 20px; font-weight: 800;">05</span>
+                                <div style="width: 40px; height: 1px; background: rgba(0, 225, 255, 0.5);"></div>
+                            </div>
+                            <h2 style="   font-size: 28px; color: var(--tx); margin-bottom: 24px;">Intellectual Property</h2>
+                            <p style="margin-bottom: 16px;">All software, designs, interfaces, content, trademarks, data structures, methodologies, documentation, and other materials provided by ChainXGrowth are owned by or licensed to ChainXGrowth unless otherwise stated.</p>
+                            <p>You may not copy, reproduce, modify, distribute, reverse-engineer, or commercially exploit our proprietary materials without prior written permission.</p>
+                        </div>
+
                     </div>
                 </div>
-        
-                <!-- Item 2 -->
-                <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:180px;">
-                    <div style="width:56px; height:56px; border-radius:16px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:rgba(0,225,255,0.05); flex-shrink:0; box-shadow: inset 0 0 15px rgba(0,225,255,0.15);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg> <!-- Hospital / Cross -->
-                    </div>
-                    <div>
-                        <div style="color:#fff; font-size:24px; font-weight:800; font-family:var(--sans); margin-bottom:4px; line-height:1;">498+</div>
-                        <div style="color:#00e1ff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Healthcare<br>Partners</div>
-                    </div>
-                </div>
-        
-                <!-- Item 3 -->
-                <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:180px;">
-                    <div style="width:56px; height:56px; border-radius:16px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:rgba(0,225,255,0.05); flex-shrink:0; box-shadow: inset 0 0 15px rgba(0,225,255,0.15);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.45.62 2.84 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg> <!-- Lightbulb -->
-                    </div>
-                    <div>
-                        <div style="color:#fff; font-size:24px; font-weight:800; font-family:var(--sans); margin-bottom:4px; line-height:1;">1K+</div>
-                        <div style="color:#00e1ff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Wellness<br>Programs</div>
-                    </div>
-                </div>
-        
-                <!-- Item 4 -->
-                <div style="display:flex; align-items:center; gap:20px; flex:1; min-width:210px;">
-                    <div style="width:56px; height:56px; border-radius:16px; border:1px solid #00e1ff; display:flex; justify-content:center; align-items:center; color:#00e1ff; background:rgba(0,225,255,0.05); flex-shrink:0; box-shadow: inset 0 0 15px rgba(0,225,255,0.15);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" x2="22" y1="12" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    </div>
-                    <div>
-                        <div style="color:#fff; font-size:16px; font-weight:800; font-family:var(--sans); margin-bottom:4px; line-height:1.2;">Global<br>Reach</div>
-                        <div style="color:#00e1ff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Across 100+<br>Countries</div>
-                    </div>
-                </div>
-        
+
             </div>
         </section>
     </main>
+
+
     <style id="footer-styles">
 .footer-social:hover { background: #1f2937 !important; }
 .footer-link:hover { color: #fff !important; }
@@ -287,33 +339,33 @@
                     <img src="logo%20image/logo%20new.png" style="height:40px;">
                     <img src="logo%20image/logo%20new%202.png" alt="ChainXGrowth" style="height:22px;">
                 </a>
-                <p style="color:#8b949e; font-size: 14px; line-height:1.6; margin-bottom: 24px;">ChainXGrowth is a
+                <p style="color: rgba(255, 255, 255, 0.85); font-size: 14px; line-height:1.6; margin-bottom: 24px;">ChainXGrowth is a
                     secure and innovative crypto platform for trading, investing, and building your financial future.
                 </p>
                 <div style="display:flex; gap:12px;">
                     <a href="javascript:void(0)"
-                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color:#fff; transition: background 0.2s;"
+                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color: var(--tx); transition: background 0.2s;"
                         class="footer-social"><svg
                             width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                         </svg></a>
                     <a href="javascript:void(0)"
-                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color:#fff; transition: background 0.2s;"
+                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color: var(--tx); transition: background 0.2s;"
                         class="footer-social"><svg
                             width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                         </svg></a>
                     <a href="javascript:void(0)"
-                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color:#fff; transition: background 0.2s;"
+                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color: var(--tx); transition: background 0.2s;"
                         class="footer-social"><svg
                             width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg></a>
                     <a href="javascript:void(0)"
-                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color:#fff; transition: background 0.2s;"
+                        style="width:36px; height:36px; border-radius:50%; background:#161b22; display:grid; place-items:center; color: var(--tx); transition: background 0.2s;"
                         class="footer-social"><svg
                             width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path
@@ -323,15 +375,15 @@
             </div>
 
             <div class="footer-col" style="flex:1; min-width: 150px;">
-                <h4 style="color:#fff; font-weight:700; font-size:16px; margin:0 0 20px;">Products</h4>
+                <h4 style="color: var(--tx); font-weight: 800; font-size:16px; margin:0 0 20px;">Products</h4>
                 <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
-                    <li><a href="https://chainxgrowth.com/register" style="color:#8b949e; font-size:14px; text-decoration:none; transition: color 0.2s;"
+                    <li><a href="https://chainxgrowth.com/register" style="color: rgba(255, 255, 255, 0.85); font-size:14px; text-decoration:none; transition: color 0.2s;"
                             class="footer-link">Spot
                             Trading</a></li>
-                    <li><a href="https://chainxgrowth.com/register" style="color:#8b949e; font-size:14px; text-decoration:none; transition: color 0.2s;"
+                    <li><a href="https://chainxgrowth.com/register" style="color: rgba(255, 255, 255, 0.85); font-size:14px; text-decoration:none; transition: color 0.2s;"
                             class="footer-link">Margin
                             Trading</a></li>
-                    <li><a href="https://chainxgrowth.com/register" style="color:#8b949e; font-size:14px; text-decoration:none; transition: color 0.2s;"
+                    <li><a href="https://chainxgrowth.com/register" style="color: rgba(255, 255, 255, 0.85); font-size:14px; text-decoration:none; transition: color 0.2s;"
                             class="footer-link">Futures
                             Trading</a></li>
                 </ul>
@@ -368,7 +420,8 @@
             </div>
         </div>
 
-        <div class="wrap footer-bottom" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:13px; color:#8b949e; align-items:center;">
+        <div class="wrap"
+            style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:13px; color: rgba(255, 255, 255, 0.85); align-items:center;">
             <span>© 2026 ChainXGrowth. All rights reserved. <a href="https://jan-war.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; transition: color 0.2s;" class="footer-link">Developed and Designed</a></span>
             <div style="display:flex; gap:16px; align-items:center;">
                 <a href="mailto:info@chainxgrowth.com" style="color:#8b949e; text-decoration:none; transition: color 0.2s;" class="footer-link">Help Center</a>
@@ -389,9 +442,33 @@
     <script src="js/decor.js"></script>
     <script src="js/pricing-flip.js"></script>
     <script src="js/network-bg.js"></script>
+
+<script>
+// Sidebar Smooth Scroll
+document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.sidebar-nav a');
+
+    // Smooth scroll on click
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) {
+                window.scrollTo({
+                    top: targetEl.offsetTop - 140, // Offset for sticky header
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
 </body>
 
 </html>
+
+
 
 
 

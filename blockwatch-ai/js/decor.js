@@ -11,5 +11,5 @@
   if (b1) for (let k = 0; k < 9; k++)
     b1.appendChild(make('ping', { left: rand(30, 92) + '%', top: rand(20, 88) + '%', animationDelay: rand(0, 2) + 's' }));
   const f = document.querySelector('.fabric');
-  if (f) f.insertAdjacentHTML('afterbegin', '<b class="ln" style="top:20%"></b><b class="ln" style="top:50%"></b><b class="ln" style="top:80%"></b>');
+  if (f) f.insertAdjacentHTML('afterbegin', '<b class="ln" style="top:38px"></b><b class="ln" style="top:190px"></b><b class="ln" style="top:342px"></b>');
 })();

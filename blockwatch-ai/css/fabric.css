@@ -106,6 +106,9 @@
   position:relative;
   z-index:1
 }
+.fabric .mid {
+  transform: translateY(-16px);
+}
 
 .ln {
   position:absolute;
